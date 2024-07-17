@@ -7,8 +7,11 @@ export const Post = defineDocumentType(() => ({
     title: { type: "string", required: true },
     date: { type: "date", required: true },
     description: { type: "string", required: true },
-    coverImage: { type: "string" },
+    coverImage: { type: "string", required: true },
     excerpt: { type: "string" },
+    tags: { type: "list", of: { type: "string" } },
+    category: { type: "enum", options: ["technology"], required: true },
+    published: { type: "boolean", required: true },
   },
   computedFields: {
     permalink: {

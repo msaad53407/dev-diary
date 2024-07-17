@@ -27,6 +27,17 @@ const Header = () => {
           </li>
           <li>
             <Link
+              href="/posts"
+              className={cn(
+                "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
+                pathname === "/posts" ? "border-b-2 border-theme-primary" : "",
+              )}
+            >
+              Posts
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/about"
               className={cn(
                 "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",

@@ -38,7 +38,7 @@
     --secondary-600: #52525b;
     --secondary-650: #51535f;
     --theme-primary: #4b6bfb;
-    --theme-primary-light: #4b6bfb80;
+    --theme-primary-light: #4b6bfb27;
     --text-primary: #181a2a;
   }
 
@@ -76,7 +76,7 @@
     --secondary-600: #f4f4f5;
     --secondary-650: #f6f6f7;
     --theme-primary: #4b6bfb;
-    --theme-primary-light: #4b6bfb80;
+    --theme-primary-light: #4b6bfb27;
     --text-primary: #f6f6f7;
   }
 }
