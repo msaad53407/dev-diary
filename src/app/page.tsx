@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 space-y-5">
+    <main className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 space-y-5 py-6">
       {/**
        * LatestPost
        */}
@@ -22,9 +22,7 @@ export default function Home() {
         <h3 className="text-lg font-bold text-text-primary">Latest Posts</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {publishedPosts.map((post) => (
-            <Link href={post.permalink} key={post.slug}>
-              <PostCard post={post} />
-            </Link>
+            <PostCard post={post} key={post._id} />
           ))}
         </div>
       </section>
