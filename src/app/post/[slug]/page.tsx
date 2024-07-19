@@ -11,6 +11,12 @@ type Props = {
   };
 };
 
+export const generateStaticParams = () => {
+  return allPosts.map((post) => ({
+    slug: post.slug,
+  }));
+};
+
 const getPostFromSlug = (slug: string) => {
   return allPosts.find((post) => post.slug === slug);
 };
