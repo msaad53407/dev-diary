@@ -11,7 +11,7 @@ type Props = {
 
 const PostCard = ({ post }: Props) => {
   return (
-    <Link href={`/post/${post.slug}`} className="w-[350px] rounded-xl">
+    <Link href={`/post/${post.slug}`} className="w-full sm:w-[350px] rounded-xl">
       <Card className="w-full">
         <CardHeader className="p-3">
           <Image

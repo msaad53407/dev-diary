@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-secondary-50 flex items-center justify-center p-6">
       <section className="max-w-screen-xl mx-auto w-full flex flex-col gap-4">
-        <div className="flex flex-row gap-4 items-center">
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="flex-1 flex flex-col gap-3">
             <h4 className="text-base font-medium text-text-primary">About</h4>
             <p className="text-sm font-normal text-secondary-400">
@@ -20,7 +20,7 @@ const Footer = () => {
               accusantium!
             </p>
           </div>
-          <div className="flex-1 flex flex-row gap-3">
+          <div className="flex-1 w-full sm:w-auto justify-between sm:justify-center flex flex-row gap-3">
             <div className="space-y-3 text-center">
               <h4 className="text-base font-medium text-text-primary">Quick Links</h4>
               <ul className="flex gap-4 flex-col items-center justify-center">

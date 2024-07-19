@@ -5,14 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import ThemeToggleButton from "./theme-toggle-button";
+import MobileMenu from "./mobile-menu";
 
 const Header = () => {
   const pathname = usePathname();
 
   return (
     <header className="w-full h-20 flex items-center justify-between max-w-screen-xl mx-auto px-6">
-      <h3 className="text-xl font-bold text-text-primary">Novo Blog</h3>
-      <nav className="w-fit">
+      <Link href={"/"}>
+        <h3 className="text-xl font-bold text-text-primary">Novo Blog</h3>
+      </Link>
+      <nav className="w-fit hidden sm:flex">
         <ul className="flex gap-4 items-center justify-center">
           <li>
             <Link
@@ -60,7 +63,8 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <ThemeToggleButton />
+      <ThemeToggleButton className="hidden sm:flex" />
+      <MobileMenu />
     </header>
   );
 };
