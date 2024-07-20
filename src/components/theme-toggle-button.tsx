@@ -1,13 +1,23 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Switch } from "./ui/switch";
 import { LucideMoon, LucideSun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import LoadingSpinner from "./loading-spinner";
 
 const ThemeToggleButton = ({ className }: { className?: string }) => {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className={cn("flex gap-2 w-fit items-center", className)}>
