@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import ThemeToggleButton from "./theme-toggle-button";
 import MobileMenu from "./mobile-menu";
+import SearchBox from "./search-box";
 
 const Header = () => {
   const pathname = usePathname();
@@ -63,7 +64,10 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <ThemeToggleButton className="hidden sm:flex" />
+      <div className="hidden sm:flex gap-5 items-center">
+        <SearchBox />
+        <ThemeToggleButton className="hidden sm:flex" />
+      </div>
       <MobileMenu />
     </header>
   );
