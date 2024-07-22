@@ -1,8 +1,8 @@
 "use client";
 
 import { LucideSearch } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 type Props = {
@@ -11,13 +11,18 @@ type Props = {
 
 const SearchBox = ({ setOpen }: Props) => {
   const router = useRouter();
-  const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("query") || "");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (setOpen) setOpen(false);
     router.push(`/search?query=${query}`);
   };
+
+  useEffect(() => {
+    setQuery(searchParams.get("query") || "");
+  }, [searchParams]);
 
   return (
     <form className="w-fit flex items-center bg-secondary-50" onSubmit={handleSubmit}>
@@ -28,7 +33,7 @@ const SearchBox = ({ setOpen }: Props) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <Button className="p-2 bg-transparent rounded-l-none">
+      <Button className="p-2 bg-transparent rounded-l-none hover:bg-transparent">
         <LucideSearch className="size-6 text-secondary-200" />
       </Button>
     </form>

@@ -1,4 +1,5 @@
 import { MDXContent } from "@/components/mdx-content";
+import TagLine from "@/components/tag-line";
 import { formatDate } from "@/lib/utils";
 import { allPosts } from "contentlayer/generated";
 import Image from "next/image";
@@ -30,7 +31,7 @@ const PostPage = ({ params: { slug } }: Props) => {
 
   return (
     <main className="w-full min-h-screen px-4 sm:px-6 lg:px-8 py-6">
-      <section className="max-w-screen-sm mx-auto flex flex-col gap-3 justify-center">
+      <section className="max-w-screen-sm mx-auto flex flex-col gap-4 justify-center">
         <span className="px-2 py-1 rounded-xl bg-theme-primary-light w-fit text-theme-primary text-sm capitalize">
           {blogPost.category}
         </span>
@@ -38,6 +39,9 @@ const PostPage = ({ params: { slug } }: Props) => {
         <div className="flex gap-3">
           <h4 className="text-sm font-normal text-secondary-400">Muhammad Saad</h4>
           <h4 className="text-sm font-normal text-secondary-400">{formatDate(blogPost.date)}</h4>
+        </div>
+        <div className="w-full flex items-center gap-2  flex-wrap">
+          {blogPost.tags && blogPost.tags.length > 0 && blogPost.tags.map((tag) => <TagLine key={tag}>{tag}</TagLine>)}
         </div>
         <Image
           src={blogPost.coverImage}
