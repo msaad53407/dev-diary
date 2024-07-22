@@ -39,7 +39,7 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       [
-        //@ts-ignore
+        // @ts-ignore
         rehypePrettyCode,
         {
           theme: "github-dark",

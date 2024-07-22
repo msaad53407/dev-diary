@@ -47,7 +47,7 @@ const PostPage = ({ params: { slug } }: Props) => {
           quality={100}
           className="w-full h-auto object-cover rounded-xl self-center"
         />
-        <article className="prose self-center">
+        <article className="prose self-center w-full">
           <MDXContent code={blogPost.body.code} />
         </article>
       </section>
