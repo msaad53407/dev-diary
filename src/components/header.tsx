@@ -7,6 +7,7 @@ import React, { Suspense } from "react";
 import ThemeToggleButton from "./theme-toggle-button";
 import MobileMenu from "./mobile-menu";
 import SearchBox from "./search-box";
+import Image from "next/image";
 
 const Header = () => {
   const pathname = usePathname();
@@ -14,7 +15,15 @@ const Header = () => {
   return (
     <header className="w-full h-20 flex items-center justify-between max-w-screen-xl mx-auto px-6">
       <Link href={"/"}>
-        <h3 className="text-xl font-bold text-text-primary">Dev Diary</h3>
+        <Image
+          src="/logo.png"
+          alt="Dev Diary logo"
+          width={70}
+          height={70}
+          quality={100}
+          color="black"
+          className="w-10 h-10 object-cover"
+        />
       </Link>
       <nav className="w-fit hidden sm:flex">
         <ul className="flex gap-4 items-center justify-center">

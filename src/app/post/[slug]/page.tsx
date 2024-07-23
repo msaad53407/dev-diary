@@ -2,6 +2,7 @@ import { MDXContent } from "@/components/mdx-content";
 import TagLine from "@/components/tag-line";
 import { formatDate } from "@/lib/utils";
 import { allPosts } from "contentlayer/generated";
+import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -9,6 +10,25 @@ import React from "react";
 type Props = {
   params: {
     slug?: string;
+  };
+};
+
+export const generateMetadata = ({ params: { slug } }: Props): Metadata => {
+  if (!slug) notFound();
+
+  const blogPost = getPostFromSlug(slug);
+
+  if (!blogPost || !blogPost.published) notFound();
+
+  return {
+    title: blogPost.title,
+    description: blogPost.description,
+    openGraph: {
+      title: blogPost.title,
+      description: blogPost.description,
+      images: [blogPost.coverImage],
+      tags: blogPost.tags,
+    },
   };
 };
 
