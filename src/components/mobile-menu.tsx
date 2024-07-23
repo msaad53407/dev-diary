@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { LucideMenu } from "lucide-react";
 import ThemeToggleButton from "./theme-toggle-button";
 import { navLinks } from "@/constants";
@@ -21,7 +21,9 @@ const MobileMenu = () => {
       </SheetTrigger>
       <SheetContent className="pt-5 w-full flex flex-col gap-5 items-center">
         <h3 className="text-xl font-bold text-text-primary">Novo Blog</h3>
-        <SearchBox setOpen={setOpen} />
+        <Suspense>
+          <SearchBox setOpen={setOpen} />
+        </Suspense>
         <nav className="w-fit flex sm:hidden">
           <ul className="flex flex-col gap-4 items-center justify-center">
             {navLinks.map(({ href, label }) => (

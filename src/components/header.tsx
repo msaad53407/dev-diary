@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import ThemeToggleButton from "./theme-toggle-button";
 import MobileMenu from "./mobile-menu";
 import SearchBox from "./search-box";
@@ -65,7 +65,9 @@ const Header = () => {
         </ul>
       </nav>
       <div className="hidden sm:flex gap-5 items-center">
-        <SearchBox />
+        <Suspense>
+          <SearchBox />
+        </Suspense>
         <ThemeToggleButton className="hidden sm:flex" />
       </div>
       <MobileMenu />
