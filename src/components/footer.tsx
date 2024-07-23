@@ -61,7 +61,7 @@ const Footer = () => {
         </div>
         <Separator />
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-text-primary">Novo Blog</h3>
+          <h3 className="text-lg font-bold text-text-primary">Dev Diary</h3>
           <p className="text-sm font-normal text-secondary-400">Copyright © {new Date().getFullYear()}</p>
         </div>
       </section>

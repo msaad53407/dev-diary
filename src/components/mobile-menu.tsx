@@ -20,7 +20,7 @@ const MobileMenu = () => {
         <LucideMenu className="size-6" />
       </SheetTrigger>
       <SheetContent className="pt-5 w-full flex flex-col gap-5 items-center">
-        <h3 className="text-xl font-bold text-text-primary">Novo Blog</h3>
+        <h3 className="text-xl font-bold text-text-primary">Dev Diary</h3>
         <Suspense>
           <SearchBox setOpen={setOpen} />
         </Suspense>

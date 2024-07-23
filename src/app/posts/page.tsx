@@ -18,7 +18,7 @@ const PostsPage = () => {
   return (
     <main className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 space-y-20 py-6">
       <section className="flex flex-col gap-4">
-        <h3 className="text-2xl text-center font-bold text-text-primary">Read Latest from Novo Blog</h3>
+        <h3 className="text-2xl text-center font-bold text-text-primary">Read Latest from Dev Diary</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {latestPublishedPosts.map((post) => (
             <PostCard post={post} key={post._id} />
