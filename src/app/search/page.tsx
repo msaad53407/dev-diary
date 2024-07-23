@@ -3,12 +3,25 @@ import TagLine from "@/components/tag-line";
 import { cn } from "@/lib/utils";
 import { allPosts } from "contentlayer/generated";
 import { LucideX } from "lucide-react";
+import { Metadata } from "next";
 import React from "react";
 
 type Props = {
   searchParams: {
     query?: string;
     tag?: string;
+  };
+};
+
+export const generateMetadata = ({ searchParams: { query, tag } }: Props): Metadata => {
+  if (!query && !tag) {
+    return {
+      title: "Search",
+    };
+  }
+
+  return {
+    title: `Search - ${query || tag}`,
   };
 };
 
