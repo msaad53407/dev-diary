@@ -32,7 +32,7 @@ const MobileMenu = () => {
                   href={href}
                   className={cn(
                     "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
-                    pathname === "/" ? "border-b-2 border-theme-primary" : "",
+                    pathname === href ? "border-b-2 border-theme-primary" : "",
                   )}
                 >
                   {label}

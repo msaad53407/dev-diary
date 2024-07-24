@@ -8,6 +8,7 @@ import ThemeToggleButton from "./theme-toggle-button";
 import MobileMenu from "./mobile-menu";
 import SearchBox from "./search-box";
 import Image from "next/image";
+import { navLinks } from "@/constants";
 
 const Header = () => {
   const pathname = usePathname();
@@ -27,50 +28,19 @@ const Header = () => {
       </Link>
       <nav className="w-fit hidden sm:flex">
         <ul className="flex gap-4 items-center justify-center">
-          <li>
-            <Link
-              href="/"
-              className={cn(
-                "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
-                pathname === "/" ? "border-b-2 border-theme-primary" : "",
-              )}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/posts"
-              className={cn(
-                "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
-                pathname === "/posts" ? "border-b-2 border-theme-primary" : "",
-              )}
-            >
-              Posts
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/about"
-              className={cn(
-                "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
-                pathname === "/about" ? "border-b-2 border-theme-primary" : "",
-              )}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className={cn(
-                "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
-                pathname === "/contact" ? "border-b-2 border-theme-primary" : "",
-              )}
-            >
-              Contact
-            </Link>
-          </li>
+          {navLinks.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className={cn(
+                  "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
+                  pathname === href ? "border-b-2 border-theme-primary" : "",
+                )}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
       <div className="hidden sm:flex gap-5 items-center">
