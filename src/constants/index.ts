@@ -22,8 +22,8 @@ export const categories = [
 
 export const socialLinks = [
   {
-    label: "Twitter",
-    href: "https://twitter.com/saad78",
+    label: "X",
+    href: "https://twitter.com/msaad_dev",
     icon: "twitter",
   },
   {
@@ -33,7 +33,7 @@ export const socialLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/msaad/",
+    href: "https://www.linkedin.com/in/muhammad-saad-61a5792aa",
     icon: "linkedin",
   },
 ];

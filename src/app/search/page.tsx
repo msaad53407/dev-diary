@@ -29,7 +29,7 @@ const SearchPage = ({ searchParams: { query, tag } }: Props) => {
   if (!query && !tag) {
     return (
       <main className="w-full h-screen px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-        <h1 className="text-3xl font-bold text-text-primary">Search something to get started</h1>
+        <h1 className="text-3xl font-bold text-text-primary text-center">Search something to get started</h1>
       </main>
     );
   }

@@ -7,7 +7,7 @@ import { navLinks } from "@/constants";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./ui/sheet";
 import SearchBox from "./search-box";
 
 const MobileMenu = () => {
@@ -20,7 +20,10 @@ const MobileMenu = () => {
         <LucideMenu className="size-6" />
       </SheetTrigger>
       <SheetContent className="pt-5 w-full flex flex-col gap-5 items-center">
-        <h3 className="text-xl font-bold text-text-primary">Dev Diary</h3>
+        <SheetTitle className="text-xl font-bold text-text-primary">Dev Diary</SheetTitle>
+        <SheetDescription className="sr-only">
+          A Dialog that contains navigation links and search box for mobile view
+        </SheetDescription>
         <Suspense>
           <SearchBox setOpen={setOpen} />
         </Suspense>
@@ -30,6 +33,7 @@ const MobileMenu = () => {
               <li key={href}>
                 <Link
                   href={href}
+                  onClick={() => setOpen(false)}
                   className={cn(
                     "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
                     pathname === href ? "border-b-2 border-theme-primary" : "",

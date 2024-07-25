@@ -1,16 +1,24 @@
 "use client";
 
+import LoadingSpinner from "@/components/loading-spinner";
 import SubmitButton from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { socialLinks } from "@/constants";
 import { Linkedin, MailIcon, PhoneIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ContactPage = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (formRef.current) {
@@ -18,13 +26,35 @@ const ContactPage = () => {
     }
   }, []);
 
+  if (!mounted) {
+    return (
+      <main className="px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-center h-screen">
+        <LoadingSpinner className="size-32" />
+      </main>
+    );
+  }
+
   const renderIcon = (icon: string) => {
     if (icon === "twitter") {
-      return <Image src="/icons/x-icon.svg" alt="twitter-icon" width={24} height={24} className="h-6 w-6 text-white" />;
+      return (
+        <Image
+          src={theme === "light" ? "/icons/x-icon-dark.svg" : "/icons/x-icon.svg"}
+          alt="twitter-icon"
+          width={24}
+          height={24}
+          className="h-6 w-6 text-white"
+        />
+      );
     }
     if (icon === "github") {
       return (
-        <Image src="/icons/github-icon.svg" alt="github-icon" width={24} height={24} className="h-6 w-6 text-primary" />
+        <Image
+          src={theme === "light" ? "/icons/github-icon-dark.svg" : "/icons/github-icon.svg"}
+          alt="github-icon"
+          width={24}
+          height={24}
+          className="h-6 w-6 text-primary"
+        />
       );
     }
 

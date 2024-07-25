@@ -12,8 +12,8 @@ type Props = {
 
 const PostCard = ({ post }: Props) => {
   return (
-    <Link href={`/post/${post.slug}`} className="w-full sm:w-[350px] rounded-xl">
-      <Card className="w-full">
+    <Card className="w-full sm:w-[350px] rounded-xl">
+      <Link href={`/post/${post.slug}`} className="w-full sm:w-[350px] rounded-xl">
         <CardHeader className="p-3">
           <Image
             src={post.coverImage || ""}
@@ -24,21 +24,21 @@ const PostCard = ({ post }: Props) => {
             className="w-full h-auto object-cover rounded-xl"
           />
         </CardHeader>
-        <CardContent className="flex flex-col gap-3 p-4 min-h-[200px]">
-          <span className="px-2 py-1 rounded-xl bg-theme-primary-light w-fit text-theme-primary text-sm capitalize">
-            {post.category}
-          </span>
-          <h3 className="text-xl font-bold text-text-primary capitalize">{post.title}</h3>
-          <div className="w-full flex items-center gap-2 flex-wrap">
-            {post.tags && post.tags.length > 0 && post.tags.map((tag) => <TagLine key={tag}>{tag}</TagLine>)}
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-between p-4">
-          <p className="text-sm text-secondary-400">Muhammad Saad</p>
-          <p className="text-sm text-secondary-400">{formatDate(post.date)}</p>
-        </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+      <CardContent className="flex flex-col gap-3 p-4 min-h-[200px]">
+        <span className="px-2 py-1 rounded-xl bg-theme-primary-light w-fit text-theme-primary text-sm capitalize">
+          {post.category}
+        </span>
+        <h3 className="text-xl font-bold text-text-primary capitalize">{post.title}</h3>
+        <div className="w-full flex items-center gap-2 flex-wrap">
+          {post.tags && post.tags.length > 0 && post.tags.map((tag) => <TagLine key={tag}>{tag}</TagLine>)}
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-between p-4">
+        <p className="text-sm text-secondary-400">Muhammad Saad</p>
+        <p className="text-sm text-secondary-400">{formatDate(post.date)}</p>
+      </CardFooter>
+    </Card>
   );
 };
 

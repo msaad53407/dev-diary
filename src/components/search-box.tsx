@@ -31,6 +31,7 @@ const SearchBox = ({ setOpen }: Props) => {
         placeholder="Search..."
         className="bg-transparent p-2 rounded-r-none w-[150px]"
         value={query}
+        required
         onChange={(e) => setQuery(e.target.value)}
       />
       <Button className="p-2 bg-transparent rounded-l-none hover:bg-transparent">

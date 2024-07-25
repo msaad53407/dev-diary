@@ -8,12 +8,18 @@ import { cn } from "@/lib/utils";
 import LoadingSpinner from "./loading-spinner";
 
 const ThemeToggleButton = ({ className }: { className?: string }) => {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      setTheme(resolvedTheme || "light");
+    }
+  }, [mounted, resolvedTheme, setTheme]);
 
   if (!mounted) {
     return <LoadingSpinner />;
