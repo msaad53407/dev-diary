@@ -22,7 +22,7 @@ const Footer = () => {
               Dive in and let&apos;s explore the tech world together!
             </p>
           </div>
-          <div className="flex-1 w-full sm:w-auto justify-between sm:justify-center flex flex-row gap-3">
+          <div className="flex-1 w-full sm:w-auto justify-center flex flex-row gap-3">
             <div className="space-y-3 text-center">
               <h4 className="text-base font-medium text-text-primary">Quick Links</h4>
               <ul className="flex gap-4 flex-col items-center justify-center">

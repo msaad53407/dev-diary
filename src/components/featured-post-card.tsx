@@ -17,6 +17,7 @@ const FeaturedPostCard = ({ post }: { post: Post }) => {
         width={500}
         height={500}
         quality={100}
+        priority
         className="w-full object-cover rounded-xl"
       />
       <Card className="w-full sm:w-[350px] absolute -bottom-14 sm:left-8">
