@@ -18,6 +18,9 @@ const ContactPage = () => {
 
   useEffect(() => {
     setMounted(true);
+    if (window) {
+      document.title = "Contact | Dev Diary";
+    }
   }, []);
 
   useEffect(() => {
