@@ -1,0 +1,216 @@
+---
+title: Building Dev Diary
+date: 2024-07-30
+description: In this blog, we will be diving into making of Dev Diary. Dev Diary is a platform meant for me to share my thoughts and experiences about latest and cutting edge technology. So this article will give an insight on which technologies I have used in making Dev Diary and Why.
+coverImage: https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+excerpt: a blog post explaining the process of building of Dev Diary Web App.
+published: false
+tags:
+  - nextjs
+  - blog
+  - reactjs
+  - contentlayer
+  - typescript
+  - tailwindcss
+  - framer-motion
+category: technology
+---
+
+# What its like to have your own Personal Blog?
+
+This is the same question that I had in mind before building **Dev Diary**. A personal blog can really help you explain your ideas and thoughts to the world. The main thing that I had in mind, was to build a simple solution that I don't have to tinker around with much and that would **just work**. So this thought help me settled to using **Markdown** for **Dev Diary**.
+
+## Why Markdown?
+
+Markdown is a very simple markup language that allows you to just quickly write something with the hassle of tags and structure that comes with other markup languages. Initially, I also gave a thought to use a **CMS**, but as I only wanted a simple platform without the need of a backend server to manage all things, I settled with **Old and Gold Markdown**.
+
+## What goes into Building of Dev Diary?
+
+So before we dive into the actual process that I followed in building this platform, I want to share my choice of **tech stack**.
+
+    ### Tech Stack
+
+    - [Next.js](https://nextjs.org/)
+    - [React.js](https://react.dev/)
+    - [Tailwind CSS](https://tailwindcss.com/)
+    - [Framer Motion](https://www.framer.com/motion/)
+    - [Contentlayer](https://www.contentlayer.dev/)
+    - [TypeScript](https://www.typescriptlang.org/)
+
+    ### Why Next.js?
+
+    So when I decided to build a static blog, first thing that came into my mind, as you probably might have guessed was, **Astro**. Dont get me wrong Astro is really wonderful, but I being more comfortable with Next.js, decided to leverage the **Static Site Generation (SSG)** feature of Nextjs.
+
+    ### Why Contentlayer?
+
+    So when I decided to use Markdown, the next thing was to find a tool that enables me to structurally manage by Blog's content. This is where **Contentlayer** comes in. Shout out to [JoshTriedCoding](https://github.), I came across his video on youtube showcasing how powerful **Contentlayer** can really be.
+
+    One thing that I found myself struggling with, was how to configure styling for Markdown elements in Contentlayer configuration. As I decided to use **MDX** the supercharged variant of Markdown that supports rendering React Components, I built some custom components for some of the most used Markdown elements. Shout out to [Shadcn](https://github.com/shadcn) for the this repo that included these styles that very much already matched my design, [checkout this repo for yourself](https://github.com/shadcn-ui/taxonomy).
+
+    ### Getting Started with Contentlayer.
+
+    Assuming you have already setup your new Nextjs 14 project,
+    (if you have'nt already, run)
+    ```bash
+    npx create-next-app@latest personal-blog
+    cd personal-blog
+    ```
+
+    First of all we are gonna start off by installing requried dependencies. Go ahead and paste the following command in your terminal.
+
+    ```bash
+    npm install @contentlayer/nextjs contentlayer rehype-slug rehype-autolink-headings rehype-pretty-code remark-gfm
+    ```
+
+    Now, make a new file called **contentlayer.config.ts** and paste the following code in it.
+
+    ```ts
+    import { defineDocumentType, makeSource } from "contentlayer/source-files";
+    import rehypeAutolinkHeadings from "rehype-autolink-headings";
+    import rehypePrettyCode from "rehype-pretty-code";
+    import rehypeSlug from "rehype-slug";
+    import remarkGfm from "remark-gfm";
+
+    export const Post = defineDocumentType(() => ({
+      name: "Post",
+      filePathPattern: `**/*.mdx`,
+      fields: {
+        title: { type: "string", required: true },
+        date: { type: "date", required: true },
+        description: { type: "string", required: true },
+        coverImage: { type: "string", required: true },
+        excerpt: { type: "string" },
+        tags: { type: "list", of: { type: "string" } },
+        category: { type: "enum", options: ["technology"], required: true },
+        published: { type: "boolean", required: true },
+      },
+      computedFields: {
+        permalink: {
+          type: "string",
+          resolve: (doc) => `/posts/${doc._raw.flattenedPath}`,
+        },
+        slug: {
+          type: "string",
+          resolve: (doc) => doc._raw.flattenedPath,
+        },
+      },
+      contentType: "mdx",
+    }));
+
+    export default makeSource({
+      contentDirPath: "src/content/blogs",
+      documentTypes: [Post],
+      disableImportAliasWarning: true,
+      mdx: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [
+          rehypeSlug,
+          [
+            // @ts-ignore
+            rehypePrettyCode,
+            {
+              theme: "github-dark",
+              onVisitLine(node: any) {
+                // Prevent lines from collapsing in `display: grid` mode, and allow empty
+                // lines to be copy/pasted
+                if (node.children.length === 0) {
+                  node.children = [{ type: "text", value: " " }];
+                }
+              },
+              onVisitHighlightedLine(node: any) {
+                node.properties.className.push("line--highlighted");
+              },
+              onVisitHighlightedWord(node: any) {
+                node.properties.className = ["word--highlighted"];
+              },
+            },
+          ],
+          [
+            rehypeAutolinkHeadings,
+            {
+              properties: {
+                className: ["subheading-anchor"],
+                ariaLabel: "Link to section",
+              },
+            },
+          ],
+        ],
+      },
+    });
+    ```
+
+    ### What did you just paste?
+
+    Let me go ahead and explain what you guys just pasted.
+
+    1. First of all, we are gonna define a Document type for our blog Posts. Give it an appropriate **name**, **filePathPattern**.
+    2. The main thing that you are gonna look out for is the **fields** property, inside that you are gonna define the fields of your document. Every field can different props that you can pass and customize it's behaviour. Checkout [Contentlayer docs](https://contentlayer.dev/docs) for more info.
+    3. The second thing that we are gonna export from file is the **makeSource** source function. Inside the function, we are gonna pass our configuration.
+    4. Most important fields are **contentDirPath**, inside that you will pass the path of where your content is located. like in this example, we are gonna use **src/content/blogs** as our **contentDirPath**. In documentTypes, we will pass the our types document types that we defined earlier. In this case we only defined **Post** Document Type, but we can add more if we want.
+    5. Finally, in mdx we are gonna pass our plugins that will beautify our output Markdown.
+
+    ### Setting up an alias
+
+    By default, contentlayer outputs the generated documents from our Markdown files to a folder in root directory called **.contentlayer/generated**. We can set up an alias to easily access this folder.
+
+    Go ahead and psate this in your compilerOption in tsconfig.json:
+
+    ```json
+    {
+      "compilerOptions": {
+        // Other compiler configurations
+        "paths": {
+          "contentlayer/generated": ["./.contentlayer/generated"]
+        }
+      },
+      "include": [/*Other configurations*/, ".contentlayer/generated"]
+      // Other configurations
+    }
+    ```
+    By pasting this in your tsconfig.json, you will be able to access the generated folder easily via the alias.
+
+    Now as we are done with our setup, we can actually go ahead and start creating content in our Markdon files, but before that, we still have one thing left to do, and that is to be able to render out our Markdown on webpage.
+
+    ### Rendering out Markdown
+
+    Make a new file in src\app\components(avoid __src__ if you are not using src directory) called **mdx-content.tsx**.
+
+    In order to render out Markdown, we are gonna be using a hook called **useMDXComponent**.
+
+    You can import it as:
+
+    ```ts
+    import { useMDXComponent } from "next-contentlayer/hooks";
+    ```
+
+    Next we are going to export a custom component on top of the hook. Go ahead and paste this component
+
+    ```tsx
+    interface MdxProps {
+      code: string;
+    }
+
+    export function MDXContent({ code }: MdxProps) {
+      const Component = useMDXComponent(code);
+      return <Component components={components} />;
+    }
+    ```
+
+    #### Bonus Step
+
+    You can define your custom components for Mdx and pass it components prop. Example is shown below
+
+    ```tsx
+    const components = {
+      h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+        <h1 className={cn("mt-2 scroll-m-20 text-4xl font-bold tracking-tight", className)} {...props} />
+      ),
+      h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+        <h2
+          className={cn("mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0", className)}
+          {...props}
+        />
+      ),
+      // ... Other components
+    }
+    ```
