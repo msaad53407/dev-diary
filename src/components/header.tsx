@@ -9,6 +9,7 @@ import MobileMenu from "./mobile-menu";
 import SearchBox from "./search-box";
 import Image from "next/image";
 import { navLinks } from "@/constants";
+import { ExternalLink } from "lucide-react";
 
 const Header = () => {
   const pathname = usePathname();
@@ -28,16 +29,19 @@ const Header = () => {
       </Link>
       <nav className="w-fit hidden sm:flex">
         <ul className="flex gap-4 items-center justify-center">
-          {navLinks.map(({ href, label }) => (
+          {navLinks.map(({ href, label, isExternal }) => (
             <li key={href}>
               <Link
                 href={href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
                 className={cn(
-                  "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors",
+                  "text-text-primary font-normal hover:border-b-2 hover:border-theme-primary transition-colors flex items-center gap-1",
                   pathname === href ? "border-b-2 border-theme-primary" : "",
                 )}
               >
                 {label}
+                {isExternal && <ExternalLink className="size-4" />}
               </Link>
             </li>
           ))}
